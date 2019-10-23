@@ -1,28 +1,32 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <router-view />
+    <!-- footer组件 -->
+    <FooterGuide v-show="$route.meta.isShowFooter" />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// 引入 footer组件
+import FooterGuide from "./components/FooterGuide/FooterGuide";
 
+// 测试ajax请求
+import { requestAddress } from "./api";
 export default {
-  name: 'app',
+  name: "app",
   components: {
-    HelloWorld
+    FooterGuide
+  },
+  mounted() {
+    this.init()
+  },
+  methods: {
+    async init() {
+      const result = await requestAddress('121.6125300000','31.0349100000');
+      console.log(result);
+    }
   }
-}
+};
 </script>
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style lang="stylus" rel="stylesheet/stylus"></style>
