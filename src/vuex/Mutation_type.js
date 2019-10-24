@@ -1,0 +1,5 @@
+/* 
+    包含n个mutation所需要的函数名的集合
+*/
+export const RECEIVE_ADDRESS = 'receive_address'    // 获取经纬度地址
+export const RECEIVE_FOOD_CATEGORY =  'receive_food_category'  //获取食物列表

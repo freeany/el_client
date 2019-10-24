@@ -3,7 +3,7 @@
   <header class="header">
     <slot name="left"></slot>
 
-    <span class="header_title">
+    <span class="header_title ellipsis">
       <span class="header_title_text ellipsis">{{title}}</span>
     </span>
 
@@ -19,8 +19,12 @@ export default {
       type: String
     }
   },
+  
   //生命周期 - 创建完成（访问当前this实例）
-  created() {},
+  created() {
+    // // 使用store中的数据 对title进行赋值   
+    // console.log(this.$store.state)
+  },
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {}
 };

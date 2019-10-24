@@ -11,21 +11,22 @@
 import FooterGuide from "./components/FooterGuide/FooterGuide";
 
 // 测试ajax请求
-import { requestAddress } from "./api";
 export default {
   name: "app",
   components: {
     FooterGuide
   },
-  mounted() {
-    this.init()
+  created() {
+    // 在app的mouted中 处理事件
+    this.$store.dispatch('receive_address')
+    this.$store.dispatch('receive_food_category')
   },
   methods: {
-    async init() {
-      const result = await requestAddress('121.6125300000','31.0349100000');
-      console.log(result);
-    }
-  }
+    
+  },
+  computed: {
+    
+  },
 };
 </script>
 

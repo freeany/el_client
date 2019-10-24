@@ -1,15 +1,14 @@
 <template>
   <!-- 首页外卖 -->
   <section class="msite">
-    <Header title="航头镇黑马培训中心">
-
+    <Header :title="address">
       <span class="header_search" slot="left">
         <i class="iconfont icon-sousuo"></i>
       </span>
 
-       <span class="header_login" slot="right">
+      <span class="header_login" slot="right">
         <span class="header_login_text">登录 | 注册</span>
-        </span>
+      </span>
     </Header>
     <!--首页导航-->
     <nav class="msite_nav">
@@ -120,22 +119,35 @@
         <div class="swiper-pagination"></div>
       </div>
     </nav>
-    
+
     <!-- 使用商家列表组件 -->
     <shopList></shopList>
-
   </section>
 </template>
 
 <script>
 // 使用商家列表组件
 import shopList from '../../components/shopList/shopList'
+
+// import { mapState } from 'vuex'
 export default {
   data() {
-    return {};
+    return {
+      title: '正在定位中'
+    };
   },
   //生命周期 - 创建完成（访问当前this实例）
-  created() {},
+  created() {
+    // 使用store中的数据 对title进行赋值    为什么这里接收不可以？？
+    // if(this.$store.state.address && this.$store.state.address.data.name) {
+    //   this.title = this.$store.state.address.data.name
+    // }
+  },
+  computed: {
+    address() {
+      return  (this.$store.state.address && this.$store.state.address.name) || '正在定位中...'
+    }
+  },
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {},
   components: {
@@ -206,7 +218,5 @@ export default {
       }
     }
   }
-
- 
 }
 </style>
