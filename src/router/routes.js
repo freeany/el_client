@@ -5,6 +5,9 @@ import Search from '../pages/Search/Search'
 import Profile from '../pages/Profile/Profile'
 import Login from '../pages/Login/Login'
 
+import TelLogin from '../pages/Login/childrenRouter/TelLogin'
+import PwdLogin from '../pages/Login/childrenRouter/PwdLogin'
+
 export default [
     {
         name: 'msite',
@@ -41,7 +44,11 @@ export default [
     {
         name: 'login',
         path: '/login',
-        component: Login
+        component: Login,
+        children: [
+            {name: 'logintel',path: 'tel',component: TelLogin},
+            {name: 'loginpwd',path: 'pwd',component: PwdLogin},
+        ]
     },
     {
         path: '/',

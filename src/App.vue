@@ -17,9 +17,7 @@ export default {
     FooterGuide
   },
   created() {
-    // 在app的mouted中 处理事件
-    this.$store.dispatch('receive_address')
-    this.$store.dispatch('receive_food_category')
+    // 在app的created中 处理事件
   },
   methods: {
     

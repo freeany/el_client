@@ -3,3 +3,6 @@
 */
 export const RECEIVE_ADDRESS = 'receive_address'    // 获取经纬度地址
 export const RECEIVE_FOOD_CATEGORY =  'receive_food_category'  //获取食物列表
+export const RECEIVE_GSHOP = 'receive_gshop'   // 获取商家列表
+
+export const RECEIVE_USER = 'receive_user'

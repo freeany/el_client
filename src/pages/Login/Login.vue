@@ -4,44 +4,16 @@
       <div class="login_header">
         <h2 class="login_logo">硅谷外卖</h2>
         <div class="login_header_title">
-          <a href="javascript:;" class="on">短信登录</a>
-          <a href="javascript:;">密码登录</a>
+          <router-link to="/login/tel" :class="{on: isShowTel}" >短信登陆</router-link>
+          <router-link to="/login/pwd" :class="{on: isShowPwd}">密码登陆</router-link>
+          <!-- <a href="javascript:;" class="on">短信登录</a> -->
+          <!-- <a href="javascript:;">密码登录</a>  -->
         </div>
       </div>
       <div class="login_content">
         <form>
-          <div class="on">
-            <section class="login_message">
-              <input type="tel" maxlength="11" placeholder="手机号" />
-              <button disabled="disabled" class="get_verification">获取验证码</button>
-            </section>
-            <section class="login_verification">
-              <input type="tel" maxlength="8" placeholder="验证码" />
-            </section>
-            <section class="login_hint">
-              温馨提示：未注册硅谷外卖帐号的手机号，登录时将自动注册，且代表已同意
-              <a href="javascript:;">《用户服务协议》</a>
-            </section>
-          </div>
-          <div>
-            <section>
-              <section class="login_message">
-                <input type="tel" maxlength="11" placeholder="手机/邮箱/用户名" />
-              </section>
-              <section class="login_verification">
-                <input type="tel" maxlength="8" placeholder="密码" />
-                <div class="switch_button off">
-                  <div class="switch_circle"></div>
-                  <span class="switch_text">...</span>
-                </div>
-              </section>
-              <section class="login_message">
-                <input type="text" maxlength="11" placeholder="验证码" />
-                <img class="get_verification" src="./images/captcha.svg" alt="captcha" />
-              </section>
-            </section>
-          </div>
-          <button class="login_submit">登录</button>
+          <!--  -->
+          <router-view @handleLoginResult="handleLoginResult"></router-view>
         </form>
         <a href="javascript:;" class="about_us">关于我们</a>
       </div>
@@ -55,21 +27,54 @@
 <script>
 export default {
   data() {
-    return {};
+    return {
+      user:''
+    };
   },
   //生命周期 - 创建完成（访问当前this实例）
-  created() {},
+  created() {
+    
+  },
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {},
   methods: {
     //   返回到上一级
       goback() {
           this.$router.go(-1)
+      },
+      // 获取登陆过来的数据
+      handleLoginResult(result,updateSrcOrmaxTime) {
+        console.log(result)
+        // 将定时器清空，防止内存泄漏
+        if(typeof updateSrcOrmaxTime === 'number') {
+          // 清空定时器
+          updateSrcOrmaxTime === 0    // 这样应该是不行的
+        }
+        if(result.code != 0) {
+          alert(result.msg)
+          updateSrcOrmaxTime && typeof updateSrcOrmaxTime === 'function' && updateSrcOrmaxTime()
+          // alert('登陆失败')
+          // return 
+        } else {
+          // 将数据存放到vuex中
+          this.$store.dispatch('receive_user',result.data)
+          // 跳转路由
+          this.$router.push({name: 'profile'})
+          // 将定时器清除
+        }
       }
+  },
+  computed: {
+    isShowTel() {
+      return this.$route.path.endsWith('tel')
+    },
+    isShowPwd() {
+      return this.$route.path.endsWith('pwd')
+    }
   },
 };
 </script>
-<style lang="stylus" rel="stylesheet/stylus" scoped>
+<style lang="stylus" rel="stylesheet/stylus" >
 /* @import ''; 引入css类 */
 @import '../../common/stylus/mixins.styl';
 
@@ -97,8 +102,9 @@ export default {
 
         >a {
           color: #333;
-          font-size: 14px;
+          // font-size: 14px;
           padding-bottom: 4px;
+          text-decoration: none;
 
           &:first-child {
             margin-right: 40px;
@@ -146,13 +152,21 @@ export default {
 
             .get_verification {
               position: absolute;
-              top: 50%;
-              right: 10px;
-              transform: translateY(-50%);
+              top: 1px;
+              right: 1px;
+              bottom: 1px;
+              height: 100%;
+              width: 25%;
+
+              // transform: translateY(-50%);
               border: 0;
               color: #ccc;
-              font-size: 14px;
+              font-size: 16px;
               background: transparent;
+              background-color: #EEEEEE;
+              &.right_phone_number {
+                color: #000
+              }
             }
           }
 
@@ -203,6 +217,10 @@ export default {
                 background: #fff;
                 box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
                 transition: transform 0.3s;
+
+                &.right {
+                  transform: translateX(27px);
+                }
               }
             }
           }

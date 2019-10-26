@@ -6,3 +6,7 @@ export const msite =  {
         longitude: '121.6125300000'   // 纬度
     }
 }
+
+export const user = {
+    
+}

@@ -111,7 +111,7 @@ export default {
   mounted() {},
   methods: {
       gotoLogin() {
-          this.$router.push({name: 'login'})
+          this.$router.push({name: 'logintel'})
       }
   },
 };
