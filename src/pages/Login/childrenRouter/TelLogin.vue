@@ -28,7 +28,7 @@ export default {
       yzmText : '获取验证码',
       fontSize: 14,           //倒计时的字体大小
       yzm: '',
-      maxTime: 6   // 倒计时的最大时间
+      maxTime: 60   // 倒计时的最大时间
     };
   },
   //生命周期 - 创建完成（访问当前this实例）
@@ -53,6 +53,7 @@ export default {
       const result = await this.$API.requestSend(this.telNumber*1)
       // console.log(result)
       if(result.code!=0) {
+        console.log(result)
         alert('发送短信失败,请输入正确号码')
         return 
       }
@@ -64,9 +65,17 @@ export default {
       }
       const intevalId = setInterval(() => {
         this.fontSize = 16
+        console.log(time)
         this.yzmText = `已发送短信${--time}s`
         
+        // 监听beforeDestory，当组件即将被销毁之前，清空定时器
+        this.$once('hook:beforeDestroy',() => {
+          console.log("触发了hook，beforeDestory")
+          clearInterval(intevalId)
+        })
+
         if(time===0) {
+          console.log('已清除定时器')
           clearInterval(intevalId)
           this.yzmText = '获取验证码'
           this.fontSize = 14

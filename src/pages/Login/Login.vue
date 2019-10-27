@@ -4,8 +4,8 @@
       <div class="login_header">
         <h2 class="login_logo">硅谷外卖</h2>
         <div class="login_header_title">
-          <router-link to="/login/tel" :class="{on: isShowTel}" >短信登陆</router-link>
-          <router-link to="/login/pwd" :class="{on: isShowPwd}">密码登陆</router-link>
+          <router-link to="/login/tel" replace :class="{on: isShowTel}" >短信登陆</router-link>
+          <router-link to="/login/pwd" replace :class="{on: isShowPwd}">密码登陆</router-link>
           <!-- <a href="javascript:;" class="on">短信登录</a> -->
           <!-- <a href="javascript:;">密码登录</a>  -->
         </div>
@@ -38,29 +38,24 @@ export default {
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {},
   methods: {
-    //   返回到上一级
+    //   返回到上一个页面
       goback() {
-          this.$router.go(-1)
+          this.$router.back(-1)
       },
       // 获取登陆过来的数据
-      handleLoginResult(result,updateSrcOrmaxTime) {
-        console.log(result)
-        // 将定时器清空，防止内存泄漏
-        if(typeof updateSrcOrmaxTime === 'number') {
-          // 清空定时器
-          updateSrcOrmaxTime === 0    // 这样应该是不行的
-        }
+      handleLoginResult(result,updateSrc) {
+        console.log(result.status)
         if(result.code != 0) {
           alert(result.msg)
-          updateSrcOrmaxTime && typeof updateSrcOrmaxTime === 'function' && updateSrcOrmaxTime()
+          updateSrc && typeof updateSrc === 'function' && updateSrc()
           // alert('登陆失败')
           // return 
         } else {
           // 将数据存放到vuex中
           this.$store.dispatch('receive_user',result.data)
+          // console.log('login页面取到了： ',this.$store.state)
           // 跳转路由
           this.$router.push({name: 'profile'})
-          // 将定时器清除
         }
       }
   },
@@ -72,7 +67,7 @@ export default {
       return this.$route.path.endsWith('pwd')
     }
   },
-};
+}
 </script>
 <style lang="stylus" rel="stylesheet/stylus" >
 /* @import ''; 引入css类 */

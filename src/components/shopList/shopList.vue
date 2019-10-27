@@ -6,7 +6,7 @@
       <span class="shop_header_title">附近商家</span>
     </div>
     <div class="shop_container">
-      <ul class="shop_list" v-if="gshopList">
+      <ul class="shop_list" v-if="gshopList.length">
         <li class="shop_li border-1px" v-for="item in gshopList" :key="item.id">
           <a>
             <div class="shop_left">

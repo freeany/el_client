@@ -1,4 +1,4 @@
-import { RECEIVE_ADDRESS,RECEIVE_FOOD_CATEGORY,RECEIVE_GSHOP,RECEIVE_USER } from './Mutation_type'
+import { RECEIVE_ADDRESS,RECEIVE_FOOD_CATEGORY,RECEIVE_GSHOP,RECEIVE_USER,LOGINOUT,AUOT_LOGIN } from './Mutation_type'
 /* 
     主要使用来获取actions中传递过来的数据，存储到
 */
@@ -21,6 +21,17 @@ export default {
     // 存储用户信息
     [RECEIVE_USER](state,user) {
         state.user = user
+    },
+
+    // 退出登陆
+    [LOGINOUT](state) {
+        state.user = {}
+        state.token = ''
+    },
+
+    // 自动登陆
+    [AUOT_LOGIN](state,user) {
+        state.user = user 
     }
 
 }

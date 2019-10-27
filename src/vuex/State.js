@@ -7,6 +7,10 @@ export const msite =  {
     }
 }
 
+// 用户信息
 export const user = {
     
 }
+
+// token令牌信息 
+export const token = localStorage.getItem('el_token') || ''

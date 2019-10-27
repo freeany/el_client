@@ -10,13 +10,17 @@
           <i class="iconfont icon-person"></i>
         </div>
         <div class="user-info">
-          <p class="user-info-top">登录/注册</p>
-          <p>
+          <!-- 
+            如果有user.phone的话，则显示第一个p，否则显示第二个p
+           -->
+          <p v-if="user && user.phone">
             <span class="user-icon">
               <i class="iconfont icon-shouji icon-mobile"></i>
-            </span>
-            <span class="icon-mobile-number">暂无绑定手机号</span>
+            </span>&nbsp;&nbsp;
+            <span class="icon-mobile-number">{{ (user && user.phone) || '  暂无绑定手机号'}}</span>
           </p>
+          <p class="user-info-top" v-else>{{ (user && '欢迎你  '+user.name) || '登录/注册'}}</p>
+
         </div>
         <span class="arrow">
           <i class="iconfont icon-jiantou1"></i>
@@ -101,19 +105,39 @@
 </template>
 
 <script>
+// import { mapState } from 'vuex'
 export default {
   data() {
-    return {};
+    return {
+      user: {}
+    };
   },
   //生命周期 - 创建完成（访问当前this实例）
-  created() {},
+  created() {
+    // console.log(this.user)
+    // 将local Storage中的el_token数据取出来。
+    // localStorage.getItem('el_token')
+    // 自动登陆虽然没有参数，但是在拦截器中已经自己携带了token 的值
+    // 分发vuex中的自动登陆
+    this.showUser()
+  },
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {},
   methods: {
+      async showUser() {
+        await this.$store.dispatch('auto_login')
+        this.user = this.$store.state.user
+      },
       gotoLogin() {
-          this.$router.push({name: 'logintel'})
+        this.$router.push({name: 'logintel'})
       }
   },
+  // computed: {
+  //   // ...mapState(['user'])   
+  //   user() {
+  //     return this.$store.state.user
+  //   }
+  // },
 };
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped>

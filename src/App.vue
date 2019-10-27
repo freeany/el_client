@@ -18,6 +18,7 @@ export default {
   },
   created() {
     // 在app的created中 处理事件
+
   },
   methods: {
     

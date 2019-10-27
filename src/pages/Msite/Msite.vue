@@ -5,11 +5,12 @@
       <span class="header_search" slot="left">
         <i class="iconfont icon-sousuo"></i>
       </span>
-
       <span class="header_login" slot="right">
         <span class="header_login_text">登录 | 注册</span>
       </span>
     </Header>
+
+
     <!--首页导航-->
     <nav class="msite_nav">
       <div class="swiper-container"  v-if="foodList.length">
@@ -30,7 +31,7 @@
         <img src="./msite_back.svg" alt="">
       </div>
     </nav>
-    
+
 
     <!-- 使用商家列表组件 -->
     <shopList></shopList>

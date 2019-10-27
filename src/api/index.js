@@ -32,3 +32,8 @@ export const requestLoginPwd = ({name,pwd,captcha}) => {
    return myaxios.post('/login_pwd',{name,pwd,captcha})
 }
 
+// 自动登陆
+export const requestAutoLogin = () => {
+   return myaxios.get('/auto_login')
+}
+
