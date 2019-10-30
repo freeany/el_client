@@ -101,11 +101,19 @@
         </div>
       </a>
     </section>
+
+    <router-link to="/a">a组件</router-link>
+    <router-link to="/b">b组件</router-link>
+
+    
   </section>
+
+  
 </template>
 
 <script>
 // import { mapState } from 'vuex'
+// 引入测试组件
 export default {
   data() {
     return {
@@ -138,6 +146,7 @@ export default {
   //     return this.$store.state.user
   //   }
   // },
+ 
 };
 </script>
 <style lang="stylus" rel="stylesheet/stylus" scoped>

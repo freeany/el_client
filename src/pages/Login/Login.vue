@@ -150,13 +150,13 @@ export default {
               top: 1px;
               right: 1px;
               bottom: 1px;
-              height: 100%;
+              height: 95%;
               width: 25%;
 
               // transform: translateY(-50%);
               border: 0;
               color: #ccc;
-              font-size: 16px;
+              font-size: 12px;
               background: transparent;
               background-color: #EEEEEE;
               &.right_phone_number {

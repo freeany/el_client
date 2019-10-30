@@ -18,14 +18,9 @@ export default {
   },
   created() {
     // 在app的created中 处理事件
-
   },
-  methods: {
-    
-  },
-  computed: {
-    
-  },
+  methods: {},
+  computed: {}
 };
 </script>
 

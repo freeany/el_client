@@ -1,16 +1,35 @@
 // 对ajax处理的函数进行处理，需要的组件使用dispatch获取
-import { requestAddress, requestCategory, requestGshop, requestAutoLogin } from '../api'
-import { RECEIVE_ADDRESS, RECEIVE_FOOD_CATEGORY, RECEIVE_GSHOP, RECEIVE_USER, LOGINOUT, AUOT_LOGIN } from './Mutation_type'
+import { 
+    requestAddress, 
+    requestCategory, 
+    requestGshop, 
+    requestAutoLogin,
+    requestGoods,
+    requestRatings,
+    requestInfo
+} from '../api'
+import {
+    RECEIVE_ADDRESS,
+    RECEIVE_FOOD_CATEGORY,
+    RECEIVE_GSHOP,
+    RECEIVE_USER,
+    LOGINOUT, AUOT_LOGIN,
+    RECEIVE_GOODS,
+    RECEIVE_RATINGS,
+    RECEIVE_INFO,
+    RECEIVE_ORDER
+} from './Mutation_type'
+
 
 // 获取到state中的参数，进行处理
-import { msite } from './State'
+import state from './State'
 
 export default {
     // 对获取经纬度的数据进行处理
     async [RECEIVE_ADDRESS]({ commit }) {
-        const { longitude, latitude } = msite.address
-        const result = await requestAddress(longitude, latitude)
+        const result = await requestAddress(state.longitude, state.latitude)
         // 将数据commit给 mutation  ， 让mutation将数据存放到state中
+        console.dir(result)
         if (result.code === 0) {
             commit(RECEIVE_ADDRESS, result.data)
         } else {
@@ -31,8 +50,7 @@ export default {
 
     // 获取商家列表详情
     async [RECEIVE_GSHOP]({ commit }) {
-        const { longitude, latitude } = msite.address
-        const result = await requestGshop(longitude, latitude)
+        const result = await requestGshop(state.longitude, state.latitude)
         if (result.code === 0) {
             // 因为评分的原因，所以需要对数据进行组装一下
             result.data.forEach((item) => {
@@ -78,10 +96,38 @@ export default {
     // 自动登陆
     async [AUOT_LOGIN]({ commit }) {
         const result = await requestAutoLogin()
-        if(result.code === 0) {
+        if (result.code === 0) {
             commit(AUOT_LOGIN, result.data)
         }
+    },
+
+
+    // 获取商家详情的食品信息     数组(比如 折扣: 商品列表)
+    async [RECEIVE_GOODS]({ commit }) {
+        const result = await requestGoods()
+        if(result.code ===0) {
+            commit(RECEIVE_GOODS, result.data)
+        }
+    },
+    // 获取商家详情 的 商家信息     对象(该商家的信息)
+    async [RECEIVE_RATINGS]({ commit }) {
+        const result = await requestRatings()
+        if(result.code ===0) {
+            commit(RECEIVE_RATINGS, result.data)
+        }
+    },
+    // 获取商家详情 的 评价信息   数组(每个人的评价)
+    async [RECEIVE_INFO]({ commit }) {
+        const result = await requestInfo()
+        if(result.code ===0) {
+            commit(RECEIVE_INFO, result.data)
+        }
+    },
+
+    // 存放订单信息
+    [RECEIVE_ORDER]({commit},orderItem) {
+        // 如果名字相同的话说明是添加的同一个信息，将重复的信息删除掉
+        // 因为这个没有ajax请求，所以将逻辑可以写在mutation中
+        commit( RECEIVE_ORDER,orderItem )
     }
-
-
 }

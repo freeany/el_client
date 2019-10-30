@@ -28,12 +28,14 @@ export default {
   },
   computed: {
     ratingsArr() {
-      const zInt = Math.ceil(this.rating * 1);
-      const xFloat = zInt - this.rating * 1;
-      let ratingArr = [];
-      const zInt1 = zInt - 1;
+      // 如果小数>  0.5  就相当于1整个
+      // 如果小数<  0.5  就像相当于半个
+      const zInt = Math.ceil(this.rating * 1);   // 向上取整，获取整数 
+      const xFloat = zInt - this.rating * 1;     //  获取小数。
+      let ratingArr = [];                        // 存放评分类名的数组，只有五个
+      const zInt1 = zInt - 1;                     // 定义如果小数大
       // 小数的解码可能存在误差。所以*10
-      let z = xFloat*10 >= 5 ? zInt1 : zInt;
+      let z = xFloat*10 >= 5 ? zInt1 : zInt;    // 如果小数大于0.5，存放的on类名的个数
       for (let i = 0; i < z; i++) {
         ratingArr.push("on");
       }

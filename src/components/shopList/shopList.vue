@@ -8,7 +8,7 @@
     <div class="shop_container">
       <ul class="shop_list" v-if="gshopList.length">
         <li class="shop_li border-1px" v-for="item in gshopList" :key="item.id">
-          <a>
+          <a @click.prevent="$router.push('/elShop')">
             <div class="shop_left">
               <img class="shop_img" :src="'https://fuss10.elemecdn.com'+item.image_path" />
             </div>

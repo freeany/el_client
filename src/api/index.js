@@ -37,3 +37,17 @@ export const requestAutoLogin = () => {
    return myaxios.get('/auto_login')
 }
 
+// 获取商家详情的食品信息     数组(比如 折扣: 商品列表)
+export const requestGoods = () => {
+   return myaxios.get('/goods')
+}
+
+// 获取商家详情 的 商家信息     对象(该商家的信息)
+export const requestRatings = () => {
+   return myaxios.get('/ratings')
+}
+
+// 获取商家详情 的 评价信息   数组(每个人的评价)
+export const requestInfo = () => {
+   return myaxios.get('/info')
+}

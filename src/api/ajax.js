@@ -23,7 +23,7 @@ myaxios.interceptors.request.use(function (config) {
     if (method.toLowerCase() === 'post' && data instanceof Object) {
 
         // 将请求的post数据 {name: 'tom', pwd: '123'} 转换成 username=zs&pwd=123这样的形式
-        config.data = qs.stringify(data)
+        config.data = qs.stringify(data)        // 将json格式转换为urlencoded的格式
     }
 
     const rName = router.currentRoute.name
@@ -54,14 +54,15 @@ myaxios.interceptors.response.use(function (response) {
     return response.data; // 将响应中的data数据return出去。
 }, function (error) {
     // 对响应错误做点什么
+   
     // 发送请求前异常(没有token)
     if (!error.response) {
         // 跳转到登陆路由
         // console.log(router)
         const rName = router.currentRoute.name
-        if (rName !== 'loginpwd' || rName !== 'logintel') {
+        if (rName != 'loginpwd' && rName != 'logintel') {
             alert(error.message)
-            router.push({ name: 'logintel' })
+            router.replace({ name: 'logintel' })
         }
     } else {
         // 发送请求后异常，但是登陆已经过期  或者token被别人伪造了。如果这样的情况，response中会返回一个code是401
@@ -70,17 +71,19 @@ myaxios.interceptors.response.use(function (response) {
             // 退出登陆（将localStorage与state中的数据清空）
             store.dispatch('loginout')
             const rName = router.currentRoute.name
-            if (rName !== 'loginpwd' || rName !== 'logintel') {
+            if (rName !== 'loginpwd' && rName !== 'logintel') {
                 alert('登陆过期，请重新登陆')
-                router.push({ name: 'logintel' })
+                router.replace({ name: 'logintel' })
             }
         }
         // 404错误
         if (error.response.status == 404) {
             alert('此资源不存在')
-            router.push({ name: 'logintel' })
+            router.replace({ name: 'logintel' })
         }
     }
+
+    // 这行代码是必须有的,否则所有的请求结果 只要判断result.code就会报错.因为return了一个undefined
     return new Promise((resolve) => {
         resolve(error)
     })

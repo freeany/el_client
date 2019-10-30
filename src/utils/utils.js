@@ -1,3 +1,4 @@
+// 一维数组变指定长度的多维数组，用作轮播图。
 export const chunk = function(arr,size) {
     // 浅拷贝一份arr
     let copyArr = [...arr]

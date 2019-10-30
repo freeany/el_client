@@ -2,8 +2,8 @@
   <div class="on">
     <section class="login_message" >
       <input type="tel" maxlength="11" placeholder="手机号" v-model="telNumber" />
-      <button :disabled="!isRightPhone" class="get_verification" :style="{fontSize: fontSize+'px'}" 
-      :class="{right_phone_number: isRightPhone}" @click.prevent="getYzm">{{yzmText}}</button>
+      <button :disabled="isRightPhone" class="get_verification" :style="{fontSize: fontSize+'px'}" 
+      :class="{right_phone_number: !isRightPhone}" @click.prevent="getYzm">{{yzmText}}</button>
     </section>
     <section class="login_verification">
       <input type="tel" maxlength="8" placeholder="输入验证码" v-model="yzm"/>
@@ -26,7 +26,7 @@ export default {
       telNumber: '',
       isRightPhone: false,
       yzmText : '获取验证码',
-      fontSize: 14,           //倒计时的字体大小
+      fontSize: 12,           //倒计时的字体大小
       yzm: '',
       maxTime: 60   // 倒计时的最大时间
     };
@@ -40,9 +40,9 @@ export default {
   watch: {
     telNumber(value) {
       if(/^1\d{10}/.test(value)) {
-        this.isRightPhone = true
-      } else {
         this.isRightPhone = false
+      } else {
+        this.isRightPhone = true
       }
     }
   },
@@ -57,14 +57,14 @@ export default {
         alert('发送短信失败,请输入正确号码')
         return 
       }
-      this.disabled = true
+      this.isRightPhone = true
       let time = this.maxTime
       this.yzmText = `已发送短信${time}s`
       if(intevalId) {
         return 
       }
       const intevalId = setInterval(() => {
-        this.fontSize = 16
+        this.fontSize = 12
         console.log(time)
         this.yzmText = `已发送短信${--time}s`
         
@@ -78,7 +78,7 @@ export default {
           console.log('已清除定时器')
           clearInterval(intevalId)
           this.yzmText = '获取验证码'
-          this.fontSize = 14
+          this.fontSize = 12
         }
       }, 1000);
     },

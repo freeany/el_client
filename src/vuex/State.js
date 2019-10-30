@@ -1,16 +1,8 @@
-// msite 的仓库
-export const msite =  {
-    // msite中对address进行处理的参数
-    address: {
-        latitude: '31.0349100000',    // 精度
-        longitude: '121.6125300000'   // 纬度
-    }
+export default {
+    latitude: '31.0349100000',    // 精度
+    longitude: '121.6125300000',   // 纬度
+    token : localStorage.getItem('el_token') || '',    // token的信息
+    info : {},                        // 商家的信息
+    ratings: [],                       // 商家的评分信息
+    order: []           // 该用户的订单信息
 }
-
-// 用户信息
-export const user = {
-    
-}
-
-// token令牌信息 
-export const token = localStorage.getItem('el_token') || ''
