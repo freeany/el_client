@@ -9,17 +9,18 @@
   export default {
 
     // 适用于路由组件没有缓存
-    /* 
-    mounted () {
-      console.log('b1 mounted()')
-      this.intervalId = setInterval(() => {
-        console.log('做些事件...')
-      }, 1000)
-    },
- */
-    /* beforeDestroy() {
-      clearInterval(this.intervalId)
-    }, */
+    // 当重新加载此路由的时候，重新开始计时         --- 没有缓存的情况
+    // 有缓存的情况， 保留上次计时，重新开始计时
+    // mounted () {
+    //   console.log('b1 mounted()')
+    //   this.intervalId = setInterval(() => {
+    //     console.log('做些事件...')
+    //   }, 1000)
+    // },
+
+    // beforeDestroy() {
+    //   clearInterval(this.intervalId)
+    // },
 
     // 在当前组件对象被创建前调用, 不能直接访问this(不是组件对象)
     // 但可以通过next(component => {}), 在回调函数中访问组件对象

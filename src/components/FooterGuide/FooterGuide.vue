@@ -38,12 +38,12 @@ export default {
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {},
   methods: {
-      goto(path) {
-        if(this.$route.path !== path) {
-            this.$router.push(path)
-        }else {
+      goto() {
+        // if(this.$route.path !== path) {
+            this.$router.push({name: 'order'})
+        // }else {
           // window.location = path
-        }
+        // }
       }
   },
 };

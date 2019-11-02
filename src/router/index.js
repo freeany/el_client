@@ -17,8 +17,15 @@ const router = new VueRouter({
 // 配置需要检查的路由数组 
 const checkRouterArr= ['a' , 'b']
 router.beforeEach((to,from,next) => {
+
+    // 解决所有的请求连续点击  报错的情况
+    // console.log(to)
+    // console.log(from)
+    if(to.path === from.path) {
+        return 
+    }
+    // 如果请求的路径在上面的数组中，并且没有token值，就强行让路由转向到手机号登陆路由
     if(checkRouterArr.indexOf(to.name) != -1 && !Store.state.token) {
-        console.log(11111111111111111111111111111111111111111111111111111111)
         router.replace({name: 'logintel'})
     } else {
         next()

@@ -37,6 +37,15 @@ export default {
   },
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {},
+  // 进入登陆组件之前，如果已经登陆了，则直接跳转到个人中心，也就是a组件
+  beforeRouteEnter (to, from, next) {
+    next(component => {
+      // 如果tokenu存在，则直接跳转。
+      if(component.$store.state.token) {
+        component.$router.replace({name: 'a'})
+      }
+    })
+  },
   methods: {
     //   返回到上一个页面
       goback() {
@@ -270,4 +279,5 @@ export default {
     }
   }
 }
+
 </style>

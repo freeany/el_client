@@ -3,6 +3,8 @@ import App from './App.vue'
 
 import router from './router'
 
+import Router from 'vue-router'
+
 // 注册vuex
 import store from './vuex/store'
 
@@ -21,6 +23,20 @@ import '../public/css/reset.css'
 // 引入mock的数据
 import './mock/mockServer'
 
+
+// 引入图片的懒加载
+import VueLazyLoad from 'vue-lazyload'
+Vue.use(VueLazyLoad, {
+  error:   './common/img/loading.gif',
+  loading: './common/img/loading.gif'
+})
+
+
+// 解决了NavigationDuplicated的问题
+const originalPush = Router.prototype.push
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+}
 
 // 定义全局过滤器
 Vue.filter("dataFormat", function (dataStr, pattern = "") {

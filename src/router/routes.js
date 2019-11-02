@@ -1,9 +1,16 @@
 
-import Msite from '../pages/Msite/Msite'
-import Order from '../pages/Order/Order'
-import Search from '../pages/Search/Search'
-import Profile from '../pages/Profile/Profile'
-import Login from '../pages/Login/Login'
+// import Msite from '../pages/Msite/Msite'
+// import Order from '../pages/Order/Order'
+// import Search from '../pages/Search/Search'
+// import Profile from '../pages/Profile/Profile'
+// import Login from '../pages/Login/Login'
+
+// 使用路由懒加载进行 需要时导入对应的路由js模块
+const Msite = () => import('../pages/Msite/Msite')
+const Order = () => import('../pages/Order/Order')
+const Search = () => import('../pages/Search/Search')
+const Profile = () => import('../pages/Profile/Profile')
+const Login = () => import('../pages/Login/Login')
 
 import TelLogin from '../pages/Login/childrenRouter/TelLogin'
 import PwdLogin from '../pages/Login/childrenRouter/PwdLogin'
@@ -85,14 +92,15 @@ export default [
     // 测试组件
     {
         path: '/a',
+        name: 'a',
         component: A
     },
     {
         path: '/b',
         component: B,
         children: [
-            {path: '/b/b1',component: B1},
-            {path: '/b/b2',component: B2},
+            {path: '/b/b1',component: B1 , name : 'b1'},
+            {path: '/b/b2',component: B2 , name : 'b2'},
             {path: '/',redirect: '/b/b1'},
         ]
     }

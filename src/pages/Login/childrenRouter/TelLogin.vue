@@ -48,12 +48,12 @@ export default {
   },
   methods: {
     async getYzm() {
-      console.log(this)
+      // console.log(this)
       // 开始发送短信验证码
       const result = await this.$API.requestSend(this.telNumber*1)
       // console.log(result)
       if(result.code!=0) {
-        console.log(result)
+        // console.log(result)
         alert('发送短信失败,请输入正确号码')
         return 
       }
@@ -65,7 +65,7 @@ export default {
       }
       const intevalId = setInterval(() => {
         this.fontSize = 12
-        console.log(time)
+        // console.log(time)
         this.yzmText = `已发送短信${--time}s`
         
         // 监听beforeDestory，当组件即将被销毁之前，清空定时器

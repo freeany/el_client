@@ -90,17 +90,17 @@ export default {
       deep: true,
       handler(value) {
         // console.log(value)
-        console.log(1)
-        console.log(this)
-        console.log('handler',this.food.name)
-        console.log(2)
+        // console.log(1)
+        // console.log(this)
+        // console.log('handler',this.food.name)
+        // console.log(2)
         let foodCount = 0;
         // console.log(this.order.length)
         // console.log(this.order)
         if (value.length > 0) {
           // console.log(this.order.length)
           value.forEach(item => {
-            console.log('foreach',item.name)
+            // console.log('foreach',item.name)
             // console.log(item.name)
             if (item.name === this.food.name) {
               foodCount = item.count;
