@@ -45,7 +45,7 @@ myaxios.interceptors.request.use(function (config) {
         throw error   // throw 的异常对象在响应拦截器中进行处理。
         // throw new Error('没有token，请重新登陆')
     }
-    return config;
+    return config;     // 拦截之后，必须return出去
 });
 
 // 添加响应拦截器
